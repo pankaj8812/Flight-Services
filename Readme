@@ -46,3 +46,31 @@ Lets take a look inside the `src` folder
  ```
  npm run dev
  ```
+
+ ### Setup Sequelize using CLI
+
+  inside src floder
+  ``` 
+    npx sequelize init
+  ```
+  create migrations, model seeders folder
+
+  create database
+  ```
+    npx sequelize db:generate    //or create
+  ```
+
+  create models ( Tables )
+
+   ```
+   npx sequelize model:generate --name Airplane --attributes modelNumber:string,capacity:integer
+  ```
+  migrate models to sql 
+   ```
+    npx sequelize db:migrate    
+  ```
+
+  revert your migration 
+  ```
+  npx sequelize db:migrate:undo
+  ```
