@@ -1,4 +1,7 @@
 const { Logger } = require("../config");
+const { error } = require("../utils/common/error-response");
+const AppError = require('../utils/errors/app-error');
+const {StatusCodes} = require('http-status-codes');
 
 class CrudRepository{
     constructor(model){
@@ -6,65 +9,45 @@ class CrudRepository{
     }
 
     async create(data){    
-        try{
-            console.log("inside Repo create folder");
-            const response = await this.model.create(data);
-            return response;
-        }catch(error){
-            console.log(error);
-            console.log("inside Airplane Repo Error");
-            Logger.error("Something went wrong in the Crud Repo: Create");
-            throw error;
-        }
-        
+        //console.log("inside Repo create folder");
+        const response = await this.model.create(data);
+        return response;
     }
   
-    async destory(data){
-        try{
-            const response = await this.model.destory({
-                where: {
-                    id: data
-                }
-            });
-            return response;
-        } catch(error){
-            Logger.error("Something went wrong in the Crud Repo: destory");
-            throw error;
-        }
+    async destroy(data){
+        const response = await this.model.destroy({
+            where: {
+              id: data
+            }
+        });
+        return response;
     }
 
     async get(data){
-        try {
-            const response = await this.model.findByPk(data);
-            return response;
-        } catch (error) {
-            Logger.error("Something went wrong in the Crud Repo: get");
-            throw error;
+        const response = await this.model.findByPk(data);
+        if(!response) {
+            throw new AppError('Not able to fund the resource', StatusCodes.NOT_FOUND);
         }
+        return response;
     }
 
-    async getAll(data){
-        try {
+    async getAll(){
             const response = await this.model.findAll();
             return response;
-        } catch (error) {
-            Logger.error("Something went wrong in the Crud Repo: getAll");
-            throw error;
-        }
     }
 
     async update(id, data){
-        try {
-            const response = await this.model.update(data, {
-                where: {
-                    id: id
-                }
-            });
-            return response;
-        } catch (error) {
-            Logger.error("Something went wrong in the Crud Repo: Update");
-            throw error;
+        // add middleware if data is empty
+        const response = await this.model.update(data, {
+            where: {
+                id: id
+            }
+        });
+        // console.log(response, typeof(response));
+        if(response == 0) {
+            throw new AppError('Not able to fund the resource', StatusCodes.NOT_FOUND);
         }
+        return response;
     }
 
 }
