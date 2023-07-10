@@ -3,6 +3,11 @@ const {AirplaneService} = require("../services");
 const { SuccessResponse, ErrorResponse } = require("../utils/common");
 
 
+/**
+ * POST : /airplanes 
+ * req-body {modelNumber: 'airbus320', capacity: 200}
+ */
+
 async function createAirplane(req, res){
     try {
         console.log(req.body);
@@ -23,6 +28,11 @@ async function createAirplane(req, res){
     }
 }
 
+/**
+ * GET : /airplanes
+ * req-body {}
+ */
+
 async function getAirplanes(req, res){
     try{
         const airplanes = await AirplaneService.getAirplanes();
@@ -35,6 +45,11 @@ async function getAirplanes(req, res){
 
 }
 
+/**
+ * GET : /airplanes/:id 
+ * req-body {}
+ */
+
 async function getAirplane(req, res){
     try {
         const airplane = await AirplaneService.getAirplane(req.params.id);
@@ -45,6 +60,11 @@ async function getAirplane(req, res){
         return res.status(error.statusCode).json(ErrorResponse);
     }
 }
+
+/**
+ * DELETE : /airplanes/:id
+ * req-body {}
+ */
 
 async function destroyAirplane(req, res){
     try {
@@ -57,9 +77,13 @@ async function destroyAirplane(req, res){
     }
 }
 
+/**
+ * PATCH : /airplanes/:id
+ * req-body {modelNumber: 'airbus320', capacity: 200}
+ */
+
 async function updateAirplane(req, res){
     try {
-        // console.log('inside controller')
         const airplane = await AirplaneService.updateAirplane(req.params.id,{
             modelNumber: req.body.modelNumber,
             capacity: req.body.capacity

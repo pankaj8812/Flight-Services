@@ -36,8 +36,7 @@ class CrudRepository{
             return response;
     }
 
-    async update(id, data){
-        // add middleware if data is empty
+    async update(id, data){    // data -> {col: value, ....}
         const response = await this.model.update(data, {
             where: {
                 id: id
