@@ -48,6 +48,7 @@ async function destroyCity(id){
         const response = await cityRespository.destroy(id);
         return response;
     } catch (error) {
+        console.log(error);
         if(error.statusCode == StatusCodes.NOT_FOUND) {
             throw new AppError('The city you requested to delete is not present', error.statusCode);
         }
