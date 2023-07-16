@@ -1,7 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { CityService } = require("../services");
 const { SuccessResponse, ErrorResponse } = require("../utils/common");
-const city = require("../models/city");
 
 /**
  * POST : /cities 
