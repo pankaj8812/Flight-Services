@@ -1,5 +1,4 @@
 const { StatusCodes } = require('http-status-codes');
-
 const { AirportRespository } = require("../repositories");
 const AppError = require("../utils/errors/app-error");
 
@@ -10,7 +9,6 @@ async function createAirport(data){
         const airport = await airportRespository.create(data);
         return airport;
     }catch(error){
-        console.log(error);
         if(error.name == 'SequelizeValidationError' || error.name == 'SequelizeUniqueConstraintError'){
             let explanation = [];
             error.errors.forEach( (err) => {

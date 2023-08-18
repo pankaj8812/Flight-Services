@@ -6,10 +6,12 @@ const {StatusCodes} = require('http-status-codes');
 class CrudRepository{
     constructor(model){
         this.model = model;
+        console.log(this.model);
     }
 
     async create(data){    
         //console.log("inside Repo create folder");
+        console.log(data);
         const response = await this.model.create(data);
         return response;
     }
