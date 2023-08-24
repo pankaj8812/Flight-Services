@@ -19,11 +19,11 @@ router.get("/:id", FlightController.getFlight);
 // // /api/v1/Flights/:id DELETE
 // router.delete("/:id", FlightController.destroyFlight);
 
-// // /api/v1/Flights/:id PATCH
-// router.patch("/:id", 
-//     FlightMiddlewares.validateUpdateRequest,
-//     FlightController.updateFlight
-// );
+// /api/v1/Flights/:id/seats PATCH
+router.patch("/:id/seats", 
+    FlightMiddlewares.validateUpdateSeatsRequest,
+    FlightController.updateSeats,
+);
 
 
 module.exports = router;
